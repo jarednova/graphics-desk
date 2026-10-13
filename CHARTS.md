@@ -99,6 +99,7 @@ Line style says whether a number has landed. Hue says what kind of thing it is, 
 
 - **Fade the past, hatch what's unsettled.** Opacity is rare and stepped. Use it mostly for the past. When it shows a quantity, use no more than two or three named steps, because it's hard to tell 65% from 35%. Instead of fading, reach for weight, empty indicators and other tools. To show that a number hasn't landed, hatch it.
 - **A month stays hatched until its books close.**
+- **Hatching is a texture over the full color.** Draw the mark in its own color, then lay light stripes over it: white, or the page background in dark mode, at about half strength. On a fill too pale for white to show, use ink stripes instead. The hue stays easy to read, so a hatched month still reads as money, and the texture adds that it hasn't landed. Never hatch with colored stripes on an empty fill. The mark thins out and reads paler, and paleness already means "less sure".
 - **A range stays a pale solid fill.** A range is a spread of possible values, not one value still to land. Its paleness says how sure it is, and the dash goes on the line through it.
 - **Weight shows rank.** The series that is the point is drawn heavier than its comparison. A heavy dotted line (the needed pace) is still a marker.
 - **Hover guides and crosshairs are interface, not data.** They may be dashed, and they never appear in a legend.

@@ -97,7 +97,7 @@ Line style says whether a number has landed. Hue says what kind of thing it is, 
 | **Dotted** (`--line-marker`) | A marker: a pace, average, target or reference point. Computed, never measured. | Budget pace, needed pace, target lines, averages, medians, today, breakeven |
 | **Faded** (opacity) | The past. It landed, so it stays solid. It fades because it isn't the subject. | Last year |
 
-- **Opacity is rare and stepped.** Use it mostly for the past. When it shows a quantity, use no more than two or three named steps, because nobody can tell 65% from 35%. Quiet a marker with a thin weight, never by fading it.
+- **Fade the past, hatch what's unsettled.** Opacity is rare and stepped. Use it mostly for the past. When it shows a quantity, use no more than two or three named steps, because it's hard to tell 65% from 35%. Instead of fading, reach for weight, empty indicators and other tools. To show that a number hasn't landed, hatch it.
 - **A month stays hatched until its books close.**
 - **A range stays a pale solid fill.** A range is a spread of possible values, not one value still to land. Its paleness says how sure it is, and the dash goes on the line through it.
 - **Weight shows rank.** The series that is the point is drawn heavier than its comparison. A heavy dotted line (the needed pace) is still a marker.
@@ -196,5 +196,4 @@ None open. When the code disagrees with a rule here and the fix isn't obvious, a
 ## Not written yet
 
 - Gridlines: when a chart gets them and what they promise.
-- Fading vs hatching.
 - When a table beats a bar chart.

@@ -1,4 +1,9 @@
-# Graphics Desk
+<h1>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark.svg">
+    <img alt="Graphics Desk: Best Practices for Chart &amp; Dashboard Systems" src="assets/logo-light.svg">
+  </picture>
+</h1>
 
 Everyone at your company can make a dashboard now. Graphics Desk is the editor.
 
@@ -9,6 +14,11 @@ Background: [Everyone at your company can make a dashboard now. Who's the editor
 ## How it works
 
 On a newspaper graphics desk, an editor sits down with you before anything goes to press. They do a naive read of your chart and tell you what's clear and what isn't. They know the rules that keep every chart in the paper speaking the same language: red is always behind, a dotted line is always a target. Every chart can be right and the set can still be wrong. The editor's job is the set.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/before-after-dark.svg">
+  <img alt="Without rules, Finance draws revenue as a blue line under a red dashed goal, BD stacks green bars with a dark-green cap for the distance to goal, and the exec deck shows an orange donut at 85% of goal. With CHARTS.md there is one picture: solid bars for months that have landed, hatched bars for months that can still move, and a dotted line for the goal." src="assets/before-after-light.svg">
+</picture>
 
 Most companies never had that desk. Now that anyone can ask Claude for a dashboard, they need one. `CHARTS.md` is the desk, written down, and your agent applies it twice:
 

@@ -1,0 +1,198 @@
+# CHARTS.md
+
+Rules for every chart, stat and table we make. They cover what the marks mean, so a chart made by anyone in the company reads the same way as every other one.
+
+This is a working copy. It comes from the internal finance dashboards I build at Upstatement, and it keeps changing as I use it. Last updated 2026-10-13.
+
+## How to use this file
+
+- **Keep it at the root of the repo**, next to CLAUDE.md or AGENTS.md, and point that file at it, so an agent reads it before it draws anything.
+- **Apply it twice:** once when a chart is built, so it starts from the right guidance, and again when the chart is reviewed, before anyone else sees it. The review is a naive read: does every mark mean what this file says it means?
+- **Keep Part 1, replace Part 2.** Part 1 holds the rules that should hold anywhere. Part 2 shows how Upstatement applies them to its own numbers: revenue, pipeline, project health and utilization. Write your own meanings in its place.
+
+Two kinds of rule live here:
+
+- **Tokens are absolute.** A token means one thing on every page. If a chart needs a meaning that no token carries, add a token here first. Don't borrow one that is already taken.
+- **Prose is judgment.** Where an axis stops, how many steps a ramp gets, whether a grid helps. Follow it by default, and say so in the review when you depart from it.
+
+The code is the definition. If this file and the running CSS disagree, the CSS wins, and this file needs fixing.
+
+---
+
+# Part 1: The rules
+
+## Color
+
+Chrome is gray and type. Color appears only on data.
+
+Readers see color before they read the legend. Red means bad and green means money whether we assign that or not, so we assign it.
+
+### Shared and local
+
+Color rules live at two levels.
+
+- **Shared:** one palette file holds the colors and the decisions every tool in the company shares. Don't add a color that isn't there.
+- **Local:** each project's CHARTS.md says how that project uses those colors: its meanings, its hue families and its chart rules.
+
+When a local rule should hold everywhere, promote it to the shared file, one repo at a time rather than all at once.
+
+### Hue families
+
+Hue says what kind of thing a mark is. Lightness says how sure it is. Line style and hatching say whether it has landed. Someone who has read this list should be able to predict a chart's colors without opening the Meanings table.
+
+- **Green is money.** Lighter green is less certain money: a probability ramp, a forecast range. Money in play is green even though it's real, so this year's revenue is green.
+- **Blue is what's real.** Things that exist or already happened: projects and their stages, last year, the current month. It also covers where a forecast lands, so the landed actual and the likely landing are both blue. Never a probability of money, a projection or a goal.
+- **Purple is a goal.** Budget, plan, target, in dollars or in hours. Planned hours from a staffing plan are purple too. Never anything measured.
+- **Red is a loss.** Down deltas, critical, lost.
+- **Yellow says look.** Watch and warning. Never a plan, even a plan of hours (that's purple).
+- **Gray is the interface, and anything projected.** A projection is gray. Its line is long-dashed and its area or cell is hatched, but a range around it stays a pale solid fill and a projected figure stays full-strength text (see Line style). It never borrows blue, and it never borrows the green of the money it projects.
+- **Amber is the model.** A model's output is a special kind of projection: a machine computed it from a lot of moving parts. So it gets its own hue instead of projection gray. Amber is gold, and gold is C-3PO, a robot. Silver would say "robot" better, but on screen it reads as gray, which plain projections already hold.
+
+A deal versus a project is the clearest case. A deal is green because it's a probability of money. A project is blue because it exists.
+
+### Tokens
+
+Color comes in two tiers.
+
+- **Colors** say what a color looks like. They sit on tracks by hue (green, blue, purple, red, orange, yellow, gray), and variants are named by track and step: `--purple-300`. Steps run 50–950, and higher is darker. Each value is written once.
+- **Meanings** say what a color is for: `--money`, `--loss`, `--budget`. Each points one hop at a color, with a one-line comment as its definition.
+
+Rules for both:
+
+- **Components, charts, stats and tables use meanings, never colors.** If no meaning fits, add one first. Don't borrow one that's already taken.
+- **Two meanings may share a color.** That's a visible decision, not a second name.
+- **Retire old names by choosing a meaning.** Keep an old name working as an alias so nothing changes on screen. Migrate each use to the meaning it actually has, then delete the alias once nothing references it.
+- **Name a likelihood ramp by its likelihoods.** `--probability-75` is a 75% chance, not a lightness step. The prefix keeps it apart from `--green-200` and the rest.
+- **Test what you can.** A test can enforce the two tiers, the one-hop rule, any locked ramp, and that every meaning in this file exists in the CSS.
+
+Line styles work like meanings: each token names a job, holds a dash pattern and carries a one-line definition. Use them, never a hand-typed dasharray. Write them from CSS or an inline style, because SVG presentation attributes don't resolve `var()`.
+
+- **`--line-marker`** (`2 3`, dotted) is a marker: a computed line you read the data against, never something measured. Use it for:
+  - **paces**: budget pace, needed pace, planned pace
+  - **targets**: a margin target, a utilization target, the centre of a target band
+  - **statistics**: averages, medians
+  - **reference points**: today, end of month, breakeven, day 0
+
+  Never use it for data, a projection, or last year.
+- **`--line-unsettled`** (`5 4`, long dash) is not settled: a projection, or a number that can still move, like projected cash, booked work ahead, a model's line, or a month whose books are still open. It's the line form of hatching. Never use it for a target or pace (that's `--line-marker`) or for last year (that's faded).
+
+Axes, gridlines and "no data" use the gray interface tints, never a meaning.
+
+### Rules
+
+- **Entities are labeled, not colored.** No chart colors a client, practice or team. If a chart needs to tell entities apart, use position, labels or small multiples. Don't add an entity palette.
+- **A likelihood is a stepped ramp, never a smooth gradient.** Line the steps up with the stages people already talk about, and keep the boundaries visible. Lock the ramp's values once they're set.
+- **Pairs keep their meaning.** A comparison is drawn the same way everywhere: the subject heavier, the comparison thinner and faded. A forecast keeps one look on every page.
+- **Up and down carry an arrow as well as a color.** ▲ green, ▼ red, so the sign survives for colorblind readers.
+- **Light colors are fills, not text.** Yellow especially is too light to read at small sizes. Give it a darker text variant and use that for words.
+
+## Line style
+
+Line style says whether a number has landed. Hue says what kind of thing it is, so two marks in the same style are told apart by hue and weight.
+
+| style | means | examples |
+|---|---|---|
+| **Solid** | Measured and final. | This year's revenue |
+| **Long dash** (`--line-unsettled`) on a line, **hatching** on an area, bar or cell | Not settled: the future, or a number that can still move. The same idea in two forms, since a line can't be hatched. | Projected cash, booked work ahead, a model's line, months whose books are still open |
+| **Dotted** (`--line-marker`) | A marker: a pace, average, target or reference point. Computed, never measured. | Budget pace, needed pace, target lines, averages, medians, today, breakeven |
+| **Faded** (opacity) | The past. It landed, so it stays solid. It fades because it isn't the subject. | Last year |
+
+- **Opacity is rare and stepped.** Use it mostly for the past. When it shows a quantity, use no more than two or three named steps, because nobody can tell 65% from 35%. Quiet a marker with a thin weight, never by fading it.
+- **A month stays hatched until its books close.**
+- **A range stays a pale solid fill.** A range is a spread of possible values, not one value still to land. Its paleness says how sure it is, and the dash goes on the line through it.
+- **Weight shows rank.** The series that is the point is drawn heavier than its comparison. A heavy dotted line (the needed pace) is still a marker.
+- **Hover guides and crosshairs are interface, not data.** They may be dashed, and they never appear in a legend.
+
+## Numbers and dates
+
+Use one set of shared formatters. Never format by hand in a component.
+
+- **Dates are calendar dates, in UTC.** Someone in Amsterdam and someone on the west coast see the same day and month.
+- **Money is compact above $1K:** `$42K`, `$1.25M`. Below $1K, show whole dollars.
+- **Negatives use an ASCII hyphen:** `-$42K`, not the Unicode minus sign. It pastes into a spreadsheet as a real number, and it's narrower in dense tables. Leave positives unsigned unless gains and losses sit side by side.
+- **Ranges use a spaced en dash:** `Mar 9 – Jun 30, 2026`. Show the year once when both ends share it.
+- **Figures use tabular numerals** (`font-variant-numeric: tabular-nums`) so columns line up.
+- **Missing values show `—`.**
+- **Margins move in points** (`+1.2 pts`). Money moves in compact dollars.
+
+## Anatomy of a chart card
+
+Every panel has the same parts, in this order:
+
+1. **Eyebrow:** the page the panel belongs to.
+2. **Title:** what the chart shows.
+3. **Subtitle:** the basis of the numbers. It changes when a toggle changes the basis.
+4. **Controls:** on the right on wider screens, stacked below the title on phones.
+5. **Chart or table.**
+6. **Legend:** each mark in the key is drawn the way it's drawn on the chart, with the same stroke, dash and opacity.
+7. **Insight:** one takeaway in a sentence, with the key figures in bold.
+
+Within the chart:
+
+- **Y axis:** compact dollars on round steps. Leave the top edge unlabeled.
+- **Now:** exactly one highlighted label for the current month. Where a pace line turns, a pivot dot marks now too.
+- **Totals:** show on hover. Hide them on phones.
+- **Weighted vs raw is a basis, not a series.** The toggle re-bases the whole chart, axis included.
+- **Stacks put the likeliest money at the bottom.** Height is dollars, and color is probability.
+
+## Layout
+
+- Mobile first. Every card is full width on a phone, and cards pair up as the screen widens.
+- Use spacing tokens for gaps, padding and corner radius rather than raw pixels.
+- A panel someone isn't allowed to see collapses. It doesn't leave a hole.
+
+---
+
+# Part 2: Upstatement's meanings
+
+This is how Upstatement's internal dashboards apply Part 1 to revenue, net income, the sales pipeline, project health and utilization. The color column describes each color in plain words. The values live in our CSS, and yours will be different.
+
+## Meanings
+
+| meaning | color | used for | never used for |
+|---|---|---|---|
+| `--money` | soft green | the main money series; revenue this year | a client, team or practice |
+| `--money-certain` | deep green | signed money, exceeding target | anything still uncertain |
+| `--money-pale` · `--money-glow` · `--money-glow-soft` | pale green; faint green tints | fills and glows for the money series | |
+| `--net-income` | bright emerald | net income; needed pace when on track | revenue |
+| `--net-income-landing` · `--net-income-pale` | darker emerald; light green | likely landing and fills on the net income forecast | revenue |
+| `--prior` · `--prior-pale` · `--prior-glow` | slate blue; pale blue; faint blue tint | last year, prior period | this year, a projection |
+| `--watch` · `--watch-pale` | marigold; pale yellow | behind pace by up to 20%, needs a look; fills and dots only | decoration, highlights, small text |
+| `--loss` | coral red | down deltas, critical, more than 20% behind | a cost we chose to incur |
+| `--budget` | purple | the budget pace line and budget zones; planned hours from staffing plans | actuals, including the actual hours burned against a plan |
+| `--forecast-landing` · `--forecast-range` · `--forecast-tint` | sky blue; palest green; palest blue | likely landing and predictive range on the revenue forecast | actuals, targets |
+| `--model` | amber | a model's output: the model line on the revenue forecast, the P&L's predictions | warnings (that's `--watch`), a plain projection (that's `--projected`) |
+| `--projected` | mid gray | anything projected: lines, ranges, cells and figures that haven't happened | last year, actuals, a model's output, the revenue forecast's range and landing |
+| `--margin-target` | purple | the target line on margin charts | anything else |
+| `--in-flight-margin` | navy | the in-flight margin's reference line on margin charts | a project's own margin, a target |
+| `--target-band` | lavender | target ± tolerance band fill | |
+| `--now` | navy | the current-month label, the active toggle | a data series |
+| `--utilization-under-far` · `--utilization-under` · `--utilization-on-target` · `--utilization-over` · `--utilization-over-far` | pale warm gray; light gray; peach; dark gray; near-black | utilization heatmap cells, by gap to the row's own target | a raw level with no target; chart lines |
+| `--probability-100` … `--probability-0` | deep green down to cream; red for lost | deal probability; pipeline stage pills | anything but probability |
+| `--stage-in-progress` · `--stage-completed` · `--stage-on-ice` | royal blue; navy; palest blue | project stage pills that sit off the probability ramp | chart series |
+| `--text` · `--bg` · `--surface` | near-black navy; off-white; white | text, page background, card surface | data |
+| `--success` · `--warning` · `--warning-text` · `--warning-pale` · `--danger` | deep green; marigold; dark mustard; pale yellow; coral red | interface status outside charts | chart series (use the chart meanings) |
+
+## Rules
+
+- **Behind pace has two steps.** Up to 20% behind is `--watch`. More than 20% behind is `--loss`.
+- **The probability ramp has seven visible steps.** From `--probability-100` down: signed (deep green), booked (90%, soft green), SOW (75%, pale green), SOW in development (65%, pale yellow), proposal discussion (50%, light gray), proposal pending (25%, taupe) and lead (10%, cream). 5% shares the 10% step. Lost (0%) is red and stays off charts. The values are locked, and a test fails if one changes.
+- **A pipeline stage is its probability.** Stage pills draw each stage from lead through signed (and lost) in its `--probability-*` step, so a pill and a probability chart never disagree. Proposal pending and opportunity identified share the 25% step. Only project states off the ramp keep a `--stage-*` meaning: royal blue for in progress, navy for completed, pale blue for on ice.
+- **Project health is measured against the project's own target.** Exceeding is `--money-certain`, healthy is `--money`, watch is `--watch`, critical is `--loss` and no data is the gray border tint. Within 5 points of target counts as on target.
+- **Utilization cells are colored by gap to their own target.** Under and over are gray ink. `--utilization-on-target` (peach) appears only within ±5 points, so a hit is the one warm cell on the grid. The steps are ±5 and ±15 points. The cell's text is always the raw billable %.
+- **This year against last year** is always `--money` (2px) against `--prior` (1.5px, faded).
+- **The revenue forecast is the one exception to projection gray.** It's a solid pale-green range (possible money), a sky-blue likely landing and an amber model line. It stays off purple so a forecast never reads as a target, and off slate and pale blue so it never reads as last year.
+- **Net income forecasts are green throughout.**
+- **Not every hue has a family yet.** Peach, the utilization hit, sits next to amber on the orange track but doesn't share its meaning. Magenta is off the charts entirely. The probability ramp crosses yellow and gray because its steps are locked.
+
+## Known conflicts
+
+None open. When the code disagrees with a rule here and the fix isn't obvious, add a bullet here rather than picking an answer quietly.
+
+---
+
+## Not written yet
+
+- Gridlines: when a chart gets them and what they promise.
+- Fading vs hatching.
+- When a table beats a bar chart.

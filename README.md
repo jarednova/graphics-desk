@@ -30,7 +30,7 @@ A taste of the rules:
 - **Numbers and dates:** compact money, ASCII negatives, tabular figures, one shared set of formatters.
 - **Anatomy of a chart card:** eyebrow, title, subtitle, controls, chart, legend, insight, always in that order.
 
-**Part 2: Upstatement's meanings.** A worked example: every color meaning used in Upstatement's internal finance dashboards, covering revenue, net income, a weighted pipeline, project health and utilization. Use it as a model, then replace it with your own.
+**Part 2: Company-specific meanings.** The color meanings, values and thresholds for your own numbers. It ships filled in with a worked example from Upstatement's internal finance dashboards, covering revenue, net income, a weighted pipeline, project health and utilization. Review it and insert your own.
 
 ## Use it today
 

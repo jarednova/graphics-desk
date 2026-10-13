@@ -8,7 +8,7 @@ This is a working copy. It comes from the internal finance dashboards I build at
 
 - **Keep it at the root of the repo**, next to CLAUDE.md or AGENTS.md, and point that file at it, so an agent reads it before it draws anything.
 - **Apply it twice:** once when a chart is built, so it starts from the right guidance, and again when the chart is reviewed, before anyone else sees it. The review is a naive read: does every mark mean what this file says it means?
-- **Keep Part 1, replace Part 2.** Part 1 holds the rules that should hold anywhere. Part 2 shows how Upstatement applies them to its own numbers: revenue, pipeline, project health and utilization. Write your own meanings in its place.
+- **Keep Part 1, replace Part 2.** Part 1 holds the rules that should hold anywhere. Part 2 holds company-specific meanings: which colors your own numbers get, and the thresholds behind them. Review it and insert your own.
 
 Two kinds of rule live here:
 
@@ -143,9 +143,11 @@ Within the chart:
 
 ---
 
-# Part 2: Upstatement's meanings
+# Part 2: Company-specific meanings
 
-This is how Upstatement's internal dashboards apply Part 1 to revenue, net income, the sales pipeline, project health and utilization. The color column describes each color in plain words. The values live in our CSS, and yours will be different.
+Part 1 says what kinds of meaning a chart can carry. This part names the meanings your company actually uses, and the color that draws each one.
+
+**Review this part and insert your own.** What's here now comes from Upstatement's internal finance dashboards: revenue, net income, the sales pipeline, project health and utilization. Keep the meanings that fit, delete the ones that don't, and add the ones your numbers need. Replace each plain color name with the value your project uses, and set the thresholds (20% behind pace, ±5 points of target, the probability steps) to the ones your team works to.
 
 ## Meanings
 

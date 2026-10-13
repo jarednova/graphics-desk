@@ -130,6 +130,7 @@ Every panel has the same parts, in this order:
 Within the chart:
 
 - **Y axis:** compact dollars on round steps. Leave the top edge unlabeled.
+- **Gridlines are a promise that you can read a value off them.** Draw them when the reader needs to read or compare values. Skip them when the chart is about shape. Space them on round values. When the chart is about a rate (Y should grow so much per X), space the grid on that rate, so the expected path runs through the grid's corners and the distance from them is the deviation. Pick the X unit that makes the rate round. The grid backs up the pace line and never replaces it: still draw the expected path as a `--line-marker`. Gridlines stay gray interface and never appear in a legend.
 - **Now:** exactly one highlighted label for the current month. Where a pace line turns, a pivot dot marks now too.
 - **Totals:** show on hover. Hide them on phones.
 - **Weighted vs raw is a basis, not a series.** The toggle re-bases the whole chart, axis included.
@@ -195,5 +196,4 @@ None open. When the code disagrees with a rule here and the fix isn't obvious, a
 
 ## Not written yet
 
-- Gridlines: when a chart gets them and what they promise.
 - When a table beats a bar chart.

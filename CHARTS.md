@@ -136,6 +136,10 @@ Within the chart:
 - **Weighted vs raw is a basis, not a series.** The toggle re-bases the whole chart, axis included.
 - **Stacks put the likeliest money at the bottom.** Height is dollars, and color is probability.
 
+## Tables
+
+- **A table beats a chart when the reader needs the values, not the shape.** Use one when exact values matter, or when each row carries more than two or three measures, especially in different units, which can't share an axis. A long list with one measure is still a sorted bar chart. A table asks the reader to find a specific row and read across it, so label each row by name, sort by the measure that matters, and link each row to its detail page where one exists. A small bar or a colored cell that helps the eye scan a column still counts as a table.
+
 ## Layout
 
 - Mobile first. Every card is full width on a phone, and cards pair up as the screen widens.
@@ -196,4 +200,4 @@ None open. When the code disagrees with a rule here and the fix isn't obvious, a
 
 ## Not written yet
 
-- When a table beats a bar chart.
+Nothing right now.

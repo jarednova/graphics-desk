@@ -29,6 +29,7 @@ A taste of the rules:
 - **Line style:** solid, long dash, dotted and faded, and what each one promises.
 - **Numbers and dates:** compact money, ASCII negatives, tabular figures, one shared set of formatters.
 - **Anatomy of a chart card:** eyebrow, title, subtitle, controls, chart, legend, insight, always in that order.
+- **Tables:** when the reader needs the values, not the shape.
 
 **Part 2: Company-specific meanings.** The color meanings, values and thresholds for your own numbers. It ships filled in with a worked example from Upstatement's internal finance dashboards, covering revenue, net income, a weighted pipeline, project health and utilization. Review it and insert your own.
 

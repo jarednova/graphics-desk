@@ -21,6 +21,12 @@ The code is the definition. If this file and the running CSS disagree, the CSS w
 
 # Part 1: The rules
 
+## Data or chrome
+
+These rules govern marks that carry data: a bar, a line, a cell's value or color, and a pill that classifies a row's data, like its stage, probability or payment status. Interface chrome is everything that reports or changes what the app or the reader is doing: controls, row states, editors, and pills like "Override passed". Chrome follows "Chrome in tables" (under Tables) and the gray interface tints. The Principles don't apply to it.
+
+When a mark could be either, ask whether it would still be true if nobody had touched the page. A bill is overdue whether or not anyone opened the ledger, so its pill is data. A row is being edited only because someone clicked it, so its tint is chrome.
+
 ## Principles
 
 The rules in this file follow from a few ideas. When a case isn't covered, reason from these. When a rule seems to fight one, say so in the review: either the rule or the principle needs fixing.
@@ -37,7 +43,7 @@ The rules in this file follow from a few ideas. When a case isn't covered, reaso
 
 ## Color
 
-Chrome is gray and type. Color appears only on data.
+Chrome is gray and type. Color appears only on data and on interface status (see "Chrome in tables").
 
 Readers see color before they read the legend. Red means bad and green means money whether we assign that or not, so we assign it.
 
@@ -130,7 +136,7 @@ Use one set of shared formatters. Never format by hand in a component.
 - **Negatives use an ASCII hyphen:** `-$42K`, not the Unicode minus sign. It pastes into a spreadsheet as a real number, and it's narrower in dense tables. Leave positives unsigned unless gains and losses sit side by side.
 - **Ranges use a spaced en dash:** `Mar 9 – Jun 30, 2026`. Show the year once when both ends share it.
 - **Figures use tabular numerals** (`font-variant-numeric: tabular-nums`) so columns line up.
-- **Missing values show `—`.**
+- **Missing values show `—`** in a value cell or figure. A sentence about a missing value uses words: "was undated", not "was —".
 - **Margins move in points** (`+1.2 pts`). Money moves in compact dollars.
 
 ## Anatomy of a chart card
@@ -150,13 +156,23 @@ Within the chart:
 - **Y axis:** compact dollars on round steps. Leave the top edge unlabeled.
 - **Gridlines are a promise that you can read a value off them.** Draw them when the reader needs to read or compare values. Skip them when the chart is about shape. Space them on round values. When the chart is about a rate (Y should grow so much per X), space the grid on that rate, so the expected path runs through the grid's corners and the distance from them is the deviation. Pick the X unit that makes the rate round. The grid backs up the pace line and never replaces it: still draw the expected path as a `--line-marker`. Gridlines stay gray interface and never appear in a legend.
 - **Now:** exactly one highlighted label for the current month, and it marks now on its own. Where a pace line turns at now, it turns without a dot (Principle 5).
-- **Totals:** show on hover. Hide them on phones.
+- **Totals:** show on hover. Hide them on phones. A table's totals row is different: it stays visible (see Tables).
 - **Weighted vs raw is a basis, not a series.** The toggle re-bases the whole chart, axis included.
 - **Stacks put the likeliest money at the bottom.** Height is dollars, and color is probability.
 
 ## Tables
 
 - **A table beats a chart when the reader needs the values, not the shape.** Use one when exact values matter, or when each row carries more than two or three measures, especially in different units, which can't share an axis. A long list with one measure is still a sorted bar chart. A table asks the reader to find a specific row and read across it, so label each row by name, sort by the measure that matters, and link each row to its detail page where one exists. A small bar or a colored cell that helps the eye scan a column still counts as a table.
+
+### Chrome in tables
+
+A table's cells are data and follow the rest of this file. Its row states, headers and editors are chrome (see "Data or chrome"), and these rules cover them. So does the color of every status pill, data or chrome.
+
+- **Hover uses the page background. State uses a faint row tint.** The tint is one faint ink token, used for the row being edited and for totals rows. Hover stays on the page color, so a hovered row never reads as one being edited. Neither is a meaning, and neither is a hand-written rgba.
+- **Totals rows stay visible**, below a stronger border rule and on the row tint. A chart hides its totals until hover. A table doesn't.
+- **Status pills use interface status, whether the pill is data or chrome.** Green text on a pale green fill, red on pale red. A warning pill is body text on pale yellow, because yellow is too light to read as text. A neutral state is gray. That covers payment status, overdue and a direction pill like AR/AP, which keep green and red as status even though money out isn't a loss. A pill that classifies data by probability or stage uses the probability ramp like any other mark.
+- **Sortable headers** show the active column and its direction, and set `aria-sort`.
+- **Inline editing:** an editable value looks like a value until it's clicked. Enter or blur saves, and Esc cancels. Never save on `change`, because a native date input fires it for each typed segment. A value set by hand shows the source value and a way back to it.
 
 ## Layout
 
@@ -196,12 +212,13 @@ Part 1 says what kinds of meaning a chart can carry. This part names the meaning
 | `--probability-100` … `--probability-0` | deep green down to cream; red for lost | deal probability; pipeline stage pills | anything but probability |
 | `--stage-in-progress` · `--stage-completed` · `--stage-on-ice` | royal blue; navy; palest blue | project stage pills that sit off the probability ramp | chart series |
 | `--text` · `--bg` · `--surface` | near-black navy; off-white; white | text, page background, card surface | data |
-| `--success` · `--warning` · `--warning-text` · `--warning-pale` · `--danger` | deep green; marigold; dark mustard; pale yellow; coral red | interface status outside charts; `--success` and `--warning-text` also ink up deltas and pace labels on charts | chart series (use the chart meanings) |
+| `--success` · `--success-pale` · `--warning` · `--warning-text` · `--warning-pale` · `--danger` · `--danger-pale` | deep green; palest green; marigold; dark mustard; pale yellow; coral red; palest red | interface status outside charts, including status pills and chips on their pale fills; `--success` and `--warning-text` also ink up deltas and pace labels on charts | chart series (use the chart meanings) |
 
 ## Rules
 
 - **Behind pace has two steps.** Up to 20% behind is `--watch`. More than 20% behind is `--loss`.
 - **Arrows take the status meanings.** ▲ is `--success` and ▼ is `--loss`.
+- **Status pills pair ink with a pale fill.** Green is `--success` on `--success-pale`, red is `--danger` on `--danger-pale`, and a warning is `--text` on `--warning-pale`.
 - **The probability ramp has seven visible steps.** From `--probability-100` down: signed (deep green), booked (90%, soft green), SOW (75%, pale green), SOW in development (65%, pale yellow), proposal discussion (50%, light gray), proposal pending (25%, taupe) and lead (10%, cream). 5% shares the 10% step. Lost (0%) is red and stays off charts. The values are locked, and a test fails if one changes.
 - **A pipeline stage is its probability.** Stage pills draw each stage from lead through signed (and lost) in its `--probability-*` step, so a pill and a probability chart never disagree. Proposal pending and opportunity identified share the 25% step. Only project states off the ramp keep a `--stage-*` meaning: royal blue for in progress, navy for completed, pale blue for on ice.
 - **Project health is measured against the project's own target.** Exceeding is `--money-certain`, healthy is `--money`, watch is `--watch`, critical is `--loss` and no data is the gray border tint. Within 5 points of target counts as on target.

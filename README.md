@@ -80,14 +80,33 @@ Edit nothing.
 
 The **Ask** list is the important one. A fix that invents a new color meaning changes the rulebook, so it should go to a person, not get applied quietly.
 
+## Install it for your whole org
+
+The steps above work one repo at a time. To give everyone at your company the same desk, including people who make dashboards in Claude and never open a repo, install Graphics Desk as a Claude skill. [`skill/SKILL.md`](skill/SKILL.md) tells Claude to read `CHARTS.md` before it draws a chart, stat, KPI tile, legend or table, and to do the naive read before it hands the work over. It also maps the defaults of Claude's Dashboard type onto `CHARTS.md`: the type's eight series colors don't get handed out to clients or teams, and its ok, warn and bad colors become your success, watch and loss meanings.
+
+It ships as a skill, not a design system, because Claude's design systems apply to Slides and Design, and the Dashboard type doesn't read one.
+
+**1. Make Part 2 yours** in your copy of `CHARTS.md`, as in "Use it today" above. The skill carries the file with it.
+
+**2. Build the zip.** `CHARTS.md` stays at the root of this repo, and the script copies it in beside `SKILL.md`, so there's one copy to edit:
+
+```bash
+sh skill/build.sh
+```
+
+That writes `dist/graphics-desk.zip`, which holds a `graphics-desk/` folder with `SKILL.md` and `CHARTS.md` inside.
+
+**3. Upload it.** An Owner of a Team or Enterprise org (not an Admin) uploads the zip under **Organization settings → Skills**. On Enterprise, turn on Skills first, along with code execution and file creation, which skills need. The skill is then on for every member, who sees it in their own Skills list with a team indicator and can turn it off.
+
+**4. It follows people into Claude Code.** Members signed in to Claude Code with their Claude account (v2.1.273 or later, not an API key or Bedrock) get the skill at the start of each session, listed under "claude.ai sync" in `/skills`. In a repo that has its own `CHARTS.md` at the root, the skill reads that copy instead of the one it carries.
+
+**5. Test it in Dashboards.** Nobody has confirmed yet that a skill fires reliably inside Claude's Dashboards flow. After you upload it, ask Claude for a dashboard of monthly revenue by client, then check that it says it's using graphics-desk, that clients are labeled rather than colored, and that the open month is hatched. If it skips the skill, name it in the request ("use the graphics-desk skill") and [open an issue](https://github.com/jarednova/graphics-desk/issues) so this step can say what works.
+
+When `CHARTS.md` changes, build the zip again and re-upload it.
+
 ## Where this is going
 
-Graphics Desk will become a pair of Claude skills, so you install it instead of copying it:
-
-- **chart-build:** reads `CHARTS.md` before any chart code gets written.
-- **chart-review:** the naive read above, run automatically before a change ships.
-
-Until then, the file and the two prompts above do the same job by hand. I'm also writing up the rules one at a time on [jared.uno](https://jared.uno).
+The skill above does both jobs: it reads `CHARTS.md` before a chart gets built and does the naive read before it ships. The next step is making sure it fires every time, in Dashboards and in code. I'm also writing up the rules one at a time on [jared.uno](https://jared.uno).
 
 `CHARTS.md` is a working copy. It changes as I use it, and the date at the top says when it last did.
 

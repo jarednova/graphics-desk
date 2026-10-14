@@ -7,7 +7,14 @@
 
 Everyone at your company can make a dashboard now. Graphics Desk is the editor.
 
-It's a single file, [`CHARTS.md`](CHARTS.md), that tells your coding agent what every mark on a chart means: which color is money, which line is a target, what a dashed line promises. Your agent reads it before it draws a chart and again before anyone sees it. So this week's dashboard agrees with last quarter's, and the CFO's screenshot agrees with yours.
+It's one file, [`CHARTS.md`](CHARTS.md), that tells the AI agent building your charts what every mark means: which color is money, which line is a target, what a dashed line promises. The agent reads it before it draws a chart and again before anyone sees it. So this week's dashboard agrees with last quarter's, and the CFO's screenshot agrees with yours.
+
+Here's one number, revenue against goal, drawn by three teams without the file, then once with it:
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/before-after-dark.svg">
+  <img alt="Without rules, Finance draws revenue as a blue line under a red dashed goal, BD stacks green bars with a dark-green cap for the distance to goal, and the exec deck shows an orange donut at 85% of goal. With CHARTS.md there is one picture: solid bars for months that have landed, hatched bars for months that can still move, and a dotted line for the goal." src="assets/before-after-light.svg">
+</picture>
 
 Background: [Everyone at your company can make a dashboard now. Who's the editor?](https://jared.uno)
 
@@ -15,19 +22,14 @@ Background: [Everyone at your company can make a dashboard now. Who's the editor
 
 On a newspaper graphics desk, an editor sits down with you before anything goes to press. They do a naive read of your chart and tell you what's clear and what isn't. They know the rules that keep every chart in the paper speaking the same language: red is always behind, a dotted line is always a target. Every chart can be right and the set can still be wrong. The editor's job is the set.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/before-after-dark.svg">
-  <img alt="Without rules, Finance draws revenue as a blue line under a red dashed goal, BD stacks green bars with a dark-green cap for the distance to goal, and the exec deck shows an orange donut at 85% of goal. With CHARTS.md there is one picture: solid bars for months that have landed, hatched bars for months that can still move, and a dotted line for the goal." src="assets/before-after-light.svg">
-</picture>
-
 Most companies never had that desk. Now that anyone can ask Claude for a dashboard, they need one. `CHARTS.md` is the desk, written down, and your agent applies it twice:
 
 1. **When a chart is built.** The agent starts from the rules instead of from whatever color is next in the palette.
 2. **When it's reviewed.** The agent does the naive read and checks every mark against the file before the chart goes out.
 
-A taste of the rules:
+The rule behind the bottom of that figure:
 
-> Line style says whether a number has landed. **Solid** is measured and final. **Long dash** is not settled: the future, or a number that can still move. **Dotted** is a marker: a pace, average, target or reference point. Computed, never measured.
+> Line style says whether a number has landed. **Solid** is measured and final. **Long dash** on a line, or **hatching** on a bar, is not settled: the future, or a number that can still move. **Dotted** is a marker: a pace, average, target or reference point. Computed, never measured.
 
 ## What's inside
 
@@ -35,13 +37,16 @@ A taste of the rules:
 
 **Part 1: The rules.** These should hold anywhere.
 
+- **Principles:** nine ideas to reason from when no rule covers the case, like "each channel answers one question" and "draw each value once."
+- **Data or chrome:** which marks the rules govern. A bill is overdue whether or not anyone opened the ledger, so its pill is data.
 - **Color:** hue families (green is money, blue is real, purple is a goal, red is a loss, yellow says look, gray is projected, amber is the model), two tiers of color tokens, and why entities get labels, not colors.
-- **Line style:** solid, long dash, dotted and faded, and what each one promises.
+- **Line style:** solid, long dash and hatching, dotted and faded, and what each one promises.
 - **Numbers and dates:** compact money, ASCII negatives, tabular figures, one shared set of formatters.
 - **Anatomy of a chart card:** eyebrow, title, subtitle, controls, chart, legend, insight, always in that order.
 - **Tables:** when the reader needs the values, not the shape.
+- **Layout:** mobile first, and a panel you can't see collapses instead of leaving a hole.
 
-**Part 2: Company-specific meanings.** The color meanings, values and thresholds for your own numbers. It ships filled in with a worked example from Upstatement's internal finance dashboards, covering revenue, net income, a weighted pipeline, project health and utilization. Review it and insert your own.
+**Part 2: Company-specific meanings.** The color meanings, values and thresholds for your own numbers. It ships filled in with a worked example from Upstatement's internal finance dashboards, covering revenue, net income, a weighted pipeline, project health and utilization. Keep what fits, delete what doesn't and add what your numbers need.
 
 ## Use it today
 

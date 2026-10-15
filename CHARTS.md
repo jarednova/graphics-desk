@@ -2,7 +2,7 @@
 
 Rules for every chart, stat and table we make. They cover what the marks mean, so a chart made by anyone in the company reads the same way as every other one.
 
-This is a working copy. It comes from the internal finance dashboards I build at Upstatement, and it keeps changing as I use it. Last updated 2026-10-14.
+This is a working copy. It comes from the internal finance dashboards I build at Upstatement, and it keeps changing as I use it. Last updated 2026-10-15.
 
 ## How to use this file
 
@@ -41,6 +41,7 @@ The rules in this file follow from a few ideas. When a case isn't covered, reaso
 8. **Words follow the marks.** Titles, insights and tooltips draw the same boundaries as the chart. If the hatching starts this week, "projected" starts this week too.
 9. **Recalculated isn't unsettled.** A pace that's recomputed every week is still a marker: a reference to read against, not a value waiting to land. Long dash and hatching are for values that will land.
 10. **Time runs oldest to newest.** Left to right along a time axis, and within each group on it, so last year's bar sits before this year's. Reverse it only for a reason the chart can state.
+11. **A pace is a running total.** It's the cumulative path to a goal: where the total should stand at each point to land on the goal at the end. The budget pace is constant: it's set with the budget and doesn't move when actuals land. The needed pace is the one that varies with performance: it runs from the actual total at now to the goal, so it steepens when we fall behind and eases when we get ahead. A chart against pace plots running totals, so the gap at now is the distance between the lines. A line through each month's own budget isn't a pace. Call it the monthly budget.
 
 ## Color
 

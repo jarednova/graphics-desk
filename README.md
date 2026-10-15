@@ -39,14 +39,14 @@ The rule behind the bottom of that figure:
 
 - **Principles:** nine ideas to reason from when no rule covers the case, like "each channel answers one question" and "draw each value once."
 - **Data or chrome:** which marks the rules govern. A bill is overdue whether or not anyone opened the ledger, so its pill is data.
-- **Color:** hue families (green is money, blue is real, purple is a goal, red is a loss, yellow says look, gray is projected, amber is the model), two tiers of color tokens, and why entities get labels, not colors.
+- **Color:** hue families (green is money, blue is what exists, purple is a goal, red is bad, yellow says look, gray is no judgment, and a projection takes the hue of what it projects), hot colors kept for rare metrics, two tiers of color tokens, and why entities get labels, not colors.
 - **Line style:** solid, long dash and hatching, dotted and faded, and what each one promises.
 - **Numbers and dates:** compact money, ASCII negatives, tabular figures, one shared set of formatters.
-- **Anatomy of a chart card:** eyebrow, title, subtitle, controls, chart, legend, insight, always in that order.
+- **Anatomy of a chart card:** overline, title, subtitle, controls, chart, legend, insight, always in that order.
 - **Tables:** when the reader needs the values, not the shape.
 - **Layout:** mobile first, and a panel you can't see collapses instead of leaving a hole.
 
-**Part 2: Company-specific meanings.** The color meanings, values and thresholds for your own numbers. It ships filled in with a worked example from Upstatement's internal finance dashboards, covering revenue, net income, a weighted pipeline, project health and utilization. Keep what fits, delete what doesn't and add what your numbers need.
+**Part 2: Company-specific meanings.** The color meanings, values and thresholds for your own numbers, and which way is good for each metric. It ships filled in with a worked example from Upstatement's internal finance dashboards, covering revenue, net income, a weighted pipeline, project health and utilization. Keep what fits, delete what doesn't and add what your numbers need.
 
 ## Use it today
 

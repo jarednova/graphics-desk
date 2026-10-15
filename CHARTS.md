@@ -33,7 +33,7 @@ When a mark could be either, ask whether it would still be true if nobody had to
 
 The rules in this file follow from a few ideas. When a case isn't covered, reason from these. When a rule seems to fight one, say so in the review: either the rule or the principle needs fixing.
 
-1. **Each channel answers one question.** Hue says what kind of thing a mark is, saturation how high it sits, a lighter step on the same track how sure, opacity how far back, line style and hatching whether it has landed, weight which series is the point, and position how much. Position and arrows say which way a number moved, and color says whether that's good. A channel asked to answer two questions makes the reader guess which one it means.
+1. **Each channel answers one question.** Hue says what kind of thing a mark is, saturation how high it sits, a lighter step on the same track how sure, opacity how far back, line style and hatching whether it has landed, weight which series is the point, and position how much. Weight is a line's stroke, so it ranks lines and never sets a bar's width. A narrower bar reads as a different kind of thing, not a lesser one. Position and arrows say which way a number moved, and color says whether that's good. A channel asked to answer two questions makes the reader guess which one it means.
 2. **One texture per mark at rest.** Hatching, segment outlines, a tinted zone and a dotted line each read well alone. Stacked on one mark they cross into a plaid, and the reader sees noise before meaning. If a mark already carries a texture, any other structure waits for hover. Reserve your tools and deploy carefully.
 3. **The shape at rest, the detail on hover.** A chart makes its point with no interaction. Hover and tap add detail, and may quiet a texture to make room for it, but they never change what a mark means.
 4. **Draw each value once.** Two marks on one value compete, and the reader looks for a difference that isn't there. Where a zone's edge already sits on a value, the line can stop. The edge carries the value even where data covers it, as long as something else is the reference there: past now, the bars are read against the needed pace, and the tooltip still gives each bar's distance from budget.
@@ -42,6 +42,8 @@ The rules in this file follow from a few ideas. When a case isn't covered, reaso
 7. **A reference stops where it stops being true.** A budget belongs to its year, so its line ends at the year divider, and so does every comparison against it, tooltips included.
 8. **Words follow the marks.** Titles, insights and tooltips draw the same boundaries as the chart. If the hatching starts this week, "projected" starts this week too.
 9. **Recalculated isn't unsettled.** A pace that's recomputed every week is still a marker: a reference to read against, not a value waiting to land. Long dash and hatching are for values that will land.
+10. **Time runs oldest to newest.** Left to right along a time axis, and within each group on it, so last year's bar sits before this year's. Reverse it only for a reason the chart can state.
+11. **A pace is a running total.** It's the cumulative path to a goal: where the total should stand at each point to land on the goal at the end. The budget pace is constant: it's set with the budget and doesn't move when actuals land. The needed pace is the one that varies with performance: it runs from the actual total at now to the goal, so it steepens when we fall behind and eases when we get ahead. A chart against pace plots running totals, so the gap at now is the distance between the lines. A line through each month's own budget isn't a pace. Call it the monthly budget.
 
 ## Color
 
@@ -112,7 +114,7 @@ Axes, gridlines and "no data" use the gray interface tints, never a meaning.
 
 - **Entities are labeled, not colored.** No chart colors a client, practice or team. If a chart needs to tell entities apart, use position, labels or small multiples. Don't add an entity palette.
 - **A likelihood is a stepped ramp, never a smooth gradient.** Line the steps up with the stages people already talk about, and keep the boundaries visible. Lock the ramp's values once they're set.
-- **Pairs keep their meaning.** A comparison is drawn the same way everywhere: the subject heavier, the comparison thinner, and faded when it's the past. A forecast keeps one look on every page.
+- **Pairs keep their meaning.** A comparison is drawn the same way everywhere: the subject heavier, the comparison thinner, and faded when it's the past. Heavier and thinner are line weights, so between bars only the fade carries over. A forecast keeps one look on every page.
 - **Up means up.** Arrows and lines show direction. Color shows whether that direction is good for this metric, and Part 2 declares which way is good for each one. A metric with no declared direction is neither, and draws in `--neutral`. Never invert an axis to make a bad number go down.
 - **Prefer metrics where up is good, but don't stretch for it.** When choosing what to show, pick the framing where up is good if it comes naturally: margin over cost ratio, runway over burn rate. Headcount going up is neither good nor bad, so it stays neutral.
 - **Every delta carries an arrow as well as a color,** so the direction survives for colorblind readers.
@@ -249,7 +251,7 @@ Each metric a chart draws declares which way is good, and its deltas take their 
 - **A pipeline stage is its probability.** Stage pills draw each stage from lead through signed (and lost) in its `--probability-*` step, so a pill and a probability chart never disagree. Proposal pending and opportunity identified share the 25% step. Only project states off the ramp keep a `--stage-*` meaning: medium blue for in progress, navy for completed, pale blue for on ice.
 - **Project health is measured against the project's own target.** Exceeding is `--money-certain`, healthy is `--money`, watch is `--watch`, critical is `--loss` and no data is the gray border tint. Within 5 points of target counts as on target.
 - **Utilization cells are colored by gap to their own target.** Under and over are gray ink. `--utilization-on-target` (peach) appears only within ±5 points, so a hit is the one warm cell on the grid. The steps are ±5 and ±15 points. The cell's text is always the raw billable %.
-- **This year against last year** is always `--money` at 2px against `--money` at `--past-1`, 1.5px.
+- **This year against last year** is always `--money` at 2px against `--money` at `--past-1`, 1.5px. As bars, it's `--money` against `--money` at `--past-1`, with last year first.
 - **The revenue forecast follows the projection rule.** Its range is a solid `--forecast-range` (possible money), its likely landing is `--money` long-dashed, and its model line is `--model`, the one departure. It stays off purple so a forecast never reads as a target.
 - **Net income forecasts are emerald throughout:** the line long-dashed in `--net-income`, the range in `--net-income-pale`.
 - **Revenue and net income differ in saturation.** When they share a card, they also differ in weight, form or a direct label (see Hot colors).

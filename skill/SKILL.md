@@ -37,7 +37,7 @@ A Claude Dashboard comes with its own defaults. Its mechanics win: datasets, `da
 | Dashboard default | Under CHARTS.md |
 |---|---|
 | `dash.colors`, eight series colors | Never hand them out by series. Entities are labeled, not colored: a chart split by client, team or practice uses position, labels or small multiples. A colored series takes a meaning from Part 2. A `dash.colors` value may sit behind a meaning, never in place of one. |
-| `--color-ok` | `--success`: status pills and ▲ deltas. Never a money series, which is `--money`. |
+| `--color-ok` | `--success`: status pills and deltas that move the good way. Never a money series, which is `--money`. |
 | `--color-warn` | `--watch` on a chart, `--warning` on a pill. It's too light for text, so a warning pill is body text on the pale fill. |
 | `--color-bad` | `--loss` on a chart, `--danger` on a pill. |
 | `--color-fg`, `--color-fg-muted`, `--color-border-line` | The gray interface: text, axes, gridlines and "no data". Never a meaning. |
@@ -52,7 +52,7 @@ A Dashboard page can't load your project's CSS, so declare the meanings it draws
   --warning: var(--color-warn);
   --loss: var(--color-bad);
   --danger: var(--color-bad);
-  /* plus each Part 2 meaning the page draws (--money, --budget, --projected …),
+  /* plus each Part 2 meaning the page draws (--money, --budget, --neutral …),
      with the value Part 2 gives. Where Part 2 names a color but gives no value,
      pick one and write it here, once. */
 }

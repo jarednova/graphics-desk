@@ -63,7 +63,7 @@ When a local rule should hold everywhere, promote it to the shared file, one rep
 Hue says what kind of thing a mark is. A lighter step says how sure it is, and opacity how far back. Line style and hatching say whether it has landed. Someone who has read this list should be able to predict a chart's colors without opening the Meanings table.
 
 - **Green is money.** Lighter green is less certain money: a probability ramp, a forecast range. Money in play is green even though it's real, so this year's revenue is green. Money is green in every tense: last year's revenue is green and faded, and projected revenue is green and long-dashed or hatched.
-- **Blue is what exists.** Projects and their stages. Navy also marks now, on the current-month label. Never money, a probability, a projection, the past or a goal.
+- **Blue is what exists.** Projects and their stages. Navy also marks now, on the current-month label. Never money, a probability or a goal. Blue never says a mark is projected or past on its own: a projected or past project keeps its blue, long-dashed, hatched or faded.
 - **Purple is a goal.** Budget, plan, target, in dollars or in hours. Planned hours from a staffing plan are purple too, and so is the needed pace while it's on track, since it's the budget recomputed. Never anything measured.
 - **Red is bad.** A loss, a delta moving the bad way for its metric, critical, lost.
 - **Yellow says look.** Watch and warning. Never a plan, even a plan of hours (that's purple).
@@ -214,7 +214,7 @@ Part 1 says what kinds of meaning a chart can carry. This part names the meaning
 | `--budget` | purple | the budget pace line and budget zones; the needed pace while on track; planned hours from staffing plans | actuals, including the actual hours burned against a plan |
 | `--forecast-range` · `--forecast-tint` | palest green; palest blue | predictive range on the revenue forecast | actuals, targets |
 | `--model` | amber | a model's output: the model line on the revenue forecast, the P&L's predictions. *Departure:* a projection takes the hue of what it projects; a model's output gets its own so the reader knows the method can't be checked by hand | warnings (that's `--watch`), a plain projection (that takes its subject's hue), a chart with `--watch` |
-| `--neutral` | mid gray | a fact with no verdict: headcount, a cost we chose to incur, the rest of a highlight chart, a delta on a metric with no good direction, a category pill like AR/AP | chrome (that's the interface grays), a projection |
+| `--neutral` | mid gray | a fact with no verdict: headcount, a cost we chose to incur, the rest of a highlight chart, a delta on a metric with no good direction, a category pill like AR/AP | chrome (that's the interface grays), or a projection of something that isn't neutral |
 | `--margin-target` | purple | the target line on margin charts | anything else |
 | `--in-flight-margin` | navy | the in-flight margin's reference line on margin charts | a project's own margin, a target |
 | `--target-band` | lavender | target ± tolerance band fill |  |

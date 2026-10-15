@@ -1,8 +1,6 @@
 <h1>
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark.svg">
-    <img alt="Graphics Desk: Best Practices for Chart &amp; Dashboard Systems" src="assets/logo-light.svg">
-  </picture>
+  <a href="assets/logo-light.svg#gh-light-mode-only"><img alt="Graphics Desk: Best Practices for Chart &amp; Dashboard Systems" src="assets/logo-light.svg"></a>
+  <a href="assets/logo-dark.svg#gh-dark-mode-only"><img alt="Graphics Desk: Best Practices for Chart &amp; Dashboard Systems" src="assets/logo-dark.svg"></a>
 </h1>
 
 Everyone at your company can make a dashboard now. Graphics Desk is the editor.
@@ -11,10 +9,10 @@ It's one file, [`CHARTS.md`](CHARTS.md), that tells the AI agent building your c
 
 Here's one number, revenue against goal, drawn by three teams without the file, then once with it:
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/before-after-dark.svg">
-  <img alt="Without rules, Finance draws revenue as a blue line under a red dashed goal, BD stacks green bars with a dark-green cap for the distance to goal, and the exec deck shows an orange donut at 85% of goal. With CHARTS.md there is one picture: solid bars for months that have landed, hatched bars for months that can still move, and a dotted line for the goal." src="assets/before-after-light.svg">
-</picture>
+<p>
+  <a href="assets/before-after-light.svg#gh-light-mode-only"><img alt="Without rules, Finance draws revenue as a blue line under a red dashed goal, BD stacks green bars with a dark-green cap for the distance to goal, and the exec deck shows an orange donut at 85% of goal. With CHARTS.md there is one picture: solid bars for months that have landed, hatched bars for months that can still move, and a dotted line for the goal." src="assets/before-after-light.svg"></a>
+  <a href="assets/before-after-dark.svg#gh-dark-mode-only"><img alt="Without rules, Finance draws revenue as a blue line under a red dashed goal, BD stacks green bars with a dark-green cap for the distance to goal, and the exec deck shows an orange donut at 85% of goal. With CHARTS.md there is one picture: solid bars for months that have landed, hatched bars for months that can still move, and a dotted line for the goal." src="assets/before-after-dark.svg"></a>
+</p>
 
 Background: [Everyone at your company can make a dashboard now. Who's the editor?](https://jared.uno)
 

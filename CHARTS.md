@@ -1,8 +1,8 @@
 # CHARTS.md
 
-These are the rules for every chart, stat and table we make. They cover what the marks mean, so a chart made by anyone in the company reads the same way as every other one.
+These are the rules for every chart, stat and table we make. They cover what the marks mean, so a chart made by anyone in the company reads the same way as every other one. Page layout, card grids and breakpoints aren't marks, so they belong in a separate file, like DESIGN.md.
 
-This is a working copy. It comes from the internal finance dashboards I build at Upstatement, and it keeps changing as I use it. Last updated 2026-10-15.
+This is a working copy. It comes from the internal finance dashboards I build at Upstatement, and it keeps changing as I use it. Last updated 2026-10-19.
 
 ## How to use this file
 
@@ -65,11 +65,11 @@ When a local rule should hold everywhere, promote it to the shared file, one rep
 Hue says what kind of thing a mark is. A lighter step says how sure it is, and opacity how far back. Line style and hatching say whether it has landed. Someone who has read this list should be able to predict a chart's colors without opening the Meanings table.
 
 - **Green is money.** Lighter green is less certain money: a probability ramp, a forecast range. Money in play is green even though it's real, so this year's revenue is green. Money is green in every tense: last year's revenue is green and faded, and projected revenue is green and long-dashed or hatched.
-- **Blue is what exists.** Projects and their stages. Navy also marks now, on the current-month label. Never money, a probability or a goal. Blue never says a mark is projected or past on its own: a projected or past project keeps its blue, long-dashed, hatched or faded.
+- **Blue is what exists.** Projects and their stages, and the hours logged to them. Navy also marks now, on the current-month label. Never money, a probability or a goal. Blue never says a mark is projected or past on its own: a projected or past project keeps its blue, long-dashed, hatched or faded.
 - **Purple is a goal.** Budget, plan, target, in dollars or in hours. Planned hours from a staffing plan are purple too, and so is the needed pace while it's on track, since it's the budget recomputed. Never anything measured.
 - **Red is bad.** A loss, a delta moving the bad way for its metric, critical, lost.
 - **Yellow says look.** Watch and warning. Never a plan, even a plan of hours (that's purple).
-- **Gray is no judgment.** A gray mark is a fact the chart has no opinion about: headcount, a cost we chose to incur, every part of a highlight chart except the one that's the point. Weight and contrast say whether it's the subject. Data gray is `--neutral`, a separate token from the interface grays even where they share a value, so a gray slice gets reviewed as data and a gray border as chrome.
+- **Gray is no judgment.** A gray mark is a fact the chart has no opinion about: headcount, a cost we chose to incur, every part of a highlight chart except the one that's the point. Weight and contrast say whether it's the subject. Data gray is `--neutral`, a separate token from the interface grays even where they share a value, so a gray slice gets reviewed as data and a gray border as chrome. Pooled history is gray too: past values pooled into the backdrop a figure is read against, like a histogram of every day's open pipeline on record. It's drawn solid or dotted, never long-dashed or hatched, so it doesn't read as projected.
 - **A projection takes the hue of what it projects.** Its line is long-dashed and its area or cell is hatched, a range around it stays a pale solid fill, and a projected figure stays full-strength text (see Line style).
 
 A deal versus a project is the clearest case. A deal is green because it's a probability of money. A project is blue because it exists.
@@ -148,7 +148,7 @@ Use one set of shared formatters. Never format by hand in a component.
 - **Money is compact above $1K:** `$42K`, `$1.25M`. Below $1K, show whole dollars.
 - **Negatives use an ASCII hyphen:** `-$42K`, not the Unicode minus sign. It pastes into a spreadsheet as a real number, and it's narrower in dense tables. Leave positives unsigned unless gains and losses sit side by side.
 - **Ranges use a spaced en dash:** `Mar 9 – Jun 30, 2026`. Show the year once when both ends share it.
-- **Figures use tabular numerals** (`font-variant-numeric: tabular-nums`) so columns line up.
+- **Figures use tabular numerals** (`font-variant-numeric: tabular-nums`) so columns line up. Headline numbers are the exception: a single large figure that stands alone, like a donut's centre value or a stat tile's value, may use the display face with its own figures, since nothing lines up against it.
 - **Missing values show `—`** in a value cell or figure. A sentence about a missing value uses words: "was undated", not "was —".
 - **Margins move in points** (`+1.2 pts`). Money moves in compact dollars.
 
@@ -183,15 +183,9 @@ A table's cells are data and follow the rest of this file. Its row states, heade
 
 - **Hover uses the page background. State uses a faint row tint.** The tint is one faint ink token, used for the row being edited and for totals rows. Hover stays on the page color, so a hovered row never reads as one being edited. Neither is a meaning, and neither is a hand-written rgba.
 - **Totals rows stay visible**, below a stronger border rule and on the row tint. A chart hides its totals until hover. A table doesn't.
-- **Status pills use interface status, whether the pill is data or chrome.** Green text on a pale green fill, red on pale red. A warning pill is body text on pale yellow, because yellow is too light to read as text. A neutral state is gray. That covers payment status and overdue. A pill that names a category with no verdict, like AR/AP, is `--neutral`. A pill that classifies data by probability or stage uses the probability ramp like any other mark.
+- **Status pills use interface status, whether the pill is data or chrome.** Green text on a pale green fill, red on pale red. A warning pill is body text on pale yellow, because yellow is too light to read as text. A neutral state is gray. That covers payment status and overdue. A direction pill carries the direction's verdict: AR (money owed to us) is green, and AP (a bill we chose to incur) is `--neutral`. An overdue bill gets its own red pill. A pill that classifies data by probability or stage uses the probability ramp like any other mark.
 - **Sortable headers** show the active column and its direction, and set `aria-sort`.
 - **Inline editing:** an editable value looks like a value until it's clicked. Enter or blur saves, and Esc cancels. Never save on `change`, because a native date input fires it for each typed segment. A value set by hand shows the source value and a way back to it.
-
-## Layout
-
-- Mobile first. Every card is full width on a phone, and cards pair up as the screen widens.
-- Use spacing tokens for gaps, padding and corner radius rather than raw pixels.
-- A panel someone isn't allowed to see collapses. It doesn't leave a hole.
 
 ---
 
@@ -208,20 +202,23 @@ Part 1 says what kinds of meaning a chart can carry. This part names the meaning
 | `--money` | soft green | the main money series: revenue this year, last year (faded) and projected (long dash or hatched); the likely landing on the revenue forecast | a client, team or practice |
 | `--money-certain` | deep green | signed money, exceeding target | anything still uncertain |
 | `--money-pale` · `--money-glow` · `--money-glow-soft` | pale green; faint green tints | fills and glows for the money series |  |
-| `--net-income` | bright emerald (hot) | net income, including its projection (long dash) | revenue, a pace |
+| `--net-income` | bright emerald (hot) | net income, including its projection and likely landing (long dash) | revenue, a pace |
 | `--net-income-pale` | light green | the range and fills on the net income forecast | revenue |
 | `--past-1` · `--past-2` | opacity: faint; fainter | last year and the year before, laid over the series' own meaning | a projection, a range, a zone |
 | `--watch` · `--watch-pale` | marigold; pale yellow | behind pace by up to 20%, needs a look; fills, dots and the needed-pace line when behind | decoration, highlights, small text, a chart with `--model` |
 | `--loss` | coral red | a delta moving the bad way, critical, more than 20% behind | a cost we chose to incur (that's `--neutral`) |
 | `--budget` | purple | the budget pace line and budget zones; the needed pace while on track; planned hours from staffing plans | actuals, including the actual hours burned against a plan |
-| `--forecast-range` · `--forecast-tint` | palest green; palest blue | predictive range on the revenue forecast | actuals, targets |
+| `--forecast-range` | palest green | predictive range on the revenue forecast | actuals, targets |
 | `--model` | amber | a model's output: the model line on the revenue forecast, the P&L's predictions. *Departure:* a projection takes the hue of what it projects; a model's output gets its own so the reader knows the method can't be checked by hand | warnings (that's `--watch`), a plain projection (that takes its subject's hue), a chart with `--watch` |
-| `--neutral` | mid gray | a fact with no verdict: headcount, a cost we chose to incur, the rest of a highlight chart, a delta on a metric with no good direction, a category pill like AR/AP | chrome (that's the interface grays), or a projection of something that isn't neutral |
+| `--neutral` | mid gray | a fact with no verdict: headcount, a cost we chose to incur, the rest of a highlight chart, a delta on a metric with no good direction, an AP pill | chrome (that's the interface grays), or a projection of something that isn't neutral |
+| `--history` · `--history-pale` | mid gray; light gray | past values pooled into the history a figure is read against, like a histogram of every day on record, and its median | a single prior period (that's the series itself at `--past-1`), a projection, chrome |
 | `--margin-target` | purple | the target line on margin charts | anything else |
 | `--in-flight-margin` | navy | the in-flight margin's reference line on margin charts | a project's own margin, a target |
 | `--target-band` | lavender | target ± tolerance band fill |  |
-| `--now` | navy | the current-month label | a data series, a control (an active toggle is ink and weight) |
+| `--now` | navy | the current-month label | a data series, a control (an active toggle is ink and weight, and a focus ring is chrome) |
 | `--utilization-under-far` · `--utilization-under` · `--utilization-on-target` · `--utilization-over` · `--utilization-over-far` | pale warm gray; light gray; peach; dark gray; near-black | utilization heatmap cells, by gap to the row's own target | a raw level with no target; chart lines |
+| `--hours-logged` | soft blue | hours logged to a project, like per-project bars in a utilization drawer | planned hours (that's `--budget`), a utilization level |
+| `--active-project` | navy | a signed project in the months it's active, like the bars on a portfolio chart | an open deal (that's the probability ramp), a stage pill (that's `--stage-completed`) |
 | `--probability-100` … `--probability-0` | deep green down to cream; red for lost | deal probability; pipeline stage pills | anything but probability |
 | `--stage-in-progress` · `--stage-completed` · `--stage-on-ice` | medium blue; navy; palest blue | project stage pills that sit off the probability ramp | chart series |
 | `--text` · `--bg` · `--surface` | near-black navy; off-white; white | text, page background, card surface | data |
@@ -237,6 +234,7 @@ Each metric a chart draws declares which way is good, and its deltas take their 
 | Net income | up |
 | Margin | up |
 | Pipeline | up |
+| Cash | up |
 | Costs | down |
 | Headcount | neither |
 | Utilization | toward its own target |
@@ -245,8 +243,8 @@ Each metric a chart draws declares which way is good, and its deltas take their 
 
 - **Behind pace has two steps.** Up to 20% behind is `--watch`. More than 20% behind is `--loss`.
 - **Deltas take the status meanings by direction.** A delta moving the good way is `--success`, the bad way `--loss`, and on a metric with no good direction, `--neutral`.
-- **Hot colors:** emerald, for net income. Magenta and royal blue are in reserve, unassigned.
-- **Status pills pair ink with a pale fill.** Green is `--success` on `--success-pale`, red is `--danger` on `--danger-pale`, and a warning is `--text` on `--warning-pale`.
+- **Hot colors:** emerald, for net income. Magenta and royal blue are in reserve. Royal blue's one standing use is the in-progress stage pill (`--stage-in-progress`), which predates this rule. A project drawn as a chart series is navy (`--active-project`).
+- **Status pills pair ink with a pale fill.** Green is `--success` on `--success-pale`, red is `--danger` on `--danger-pale`, and a warning is `--text` on `--warning-pale`. An AR pill is `--success` on `--success-pale`, and an AP pill is `--neutral` on the border gray.
 - **The probability ramp has seven visible steps.** From `--probability-100` down: signed (deep green), booked (90%, soft green), SOW (75%, pale green), SOW in development (65%, pale yellow), proposal discussion (50%, light gray), proposal pending (25%, taupe) and lead (10%, cream). 5% shares the 10% step. Lost (0%) is red and stays off charts. The values are locked, and a test fails if one changes.
 - **A pipeline stage is its probability.** Stage pills draw each stage from lead through signed (and lost) in its `--probability-*` step, so a pill and a probability chart never disagree. Proposal pending and opportunity identified share the 25% step. Only project states off the ramp keep a `--stage-*` meaning: medium blue for in progress, navy for completed, pale blue for on ice.
 - **Project health is measured against the project's own target.** Exceeding is `--money-certain`, healthy is `--money`, watch is `--watch`, critical is `--loss` and no data is the gray border tint. Within 5 points of target counts as on target.
@@ -262,9 +260,7 @@ Each metric a chart draws declares which way is good, and its deltas take their 
 
 When the code disagrees with a rule here and the fix isn't obvious, add a bullet here rather than picking an answer quietly.
 
-- **`--forecast-tint` (palest blue).** Blue now means projects, and the revenue forecast no longer draws in blue. Find where this tint is used and give it a meaning, or delete it.
-- **Retired names still in the code.** `--projected`, `--forecast-landing`, `--net-income-landing` and the `--prior` set are gone from this file. Keep each working as an alias, migrate every use to the meaning it actually has (a projection to its subject's hue, a landing to its series long-dashed, last year to its own meaning at `--past-1`), then delete the alias.
-- **Needed pace on track.** The code draws it in `--net-income`. This file now says `--budget`.
+- **Retired names still in the code.** `--projected`, `--forecast-landing`, `--net-income-landing`, `--forecast-tint` and the `--prior` set are gone from this file. Keep each working as an alias, migrate every use to the meaning it actually has (a projection to its subject's hue, a landing to its series long-dashed, last year to its own meaning at `--past-1`, and `--forecast-tint`'s one use, a selected row, to the row tint, since it's chrome), then delete the alias.
 
 ---
 

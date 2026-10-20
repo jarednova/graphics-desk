@@ -36,7 +36,6 @@ The rule behind the bottom of that figure:
 - **Numbers and dates:** compact money, ASCII negatives, tabular figures, one shared set of formatters.
 - **Anatomy of a chart card:** overline, title, subtitle, controls, chart, legend, insight, always in that order.
 - **Tables:** when the reader needs the values, not the shape.
-- **Layout:** mobile first, and a panel you can't see collapses instead of leaving a hole.
 
 **Part 2: Company-specific meanings.** The color meanings, values and thresholds for your own numbers, and which way is good for each metric. It ships filled in with a worked example from Upstatement's internal finance dashboards, covering revenue, net income, a weighted pipeline, project health and utilization. Keep what fits, delete what doesn't and add what your numbers need.
 

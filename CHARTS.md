@@ -127,7 +127,7 @@ Line style says whether a number has landed. Hue says what kind of thing it is, 
 | style | means | examples |
 |---|---|---|
 | **Solid** | Measured and final. | This year's revenue |
-| **Long dash** (`--line-unsettled`) on a line, **hatching** on an area, bar or cell | Not settled: the future, or a value that will land but hasn't yet. The same idea in two forms, since a line can't be hatched. | Projected cash, booked work ahead, a model's line, months whose books are still open |
+| **Long dash** (`--line-unsettled`) on a line, **hatching** on an area, bar, cell or dot | Not settled: the future, or a value that will land but hasn't yet. The same idea in two forms, since a line can't be hatched. | Projected cash, booked work ahead, a model's line, months whose books are still open |
 | **Dotted** (`--line-marker`) | A marker: a pace, average, target or reference point. Computed, never measured. | Budget pace, needed pace, target lines, averages, medians, today, breakeven |
 | **Faded** (opacity) | The past. It landed, so it stays solid, in its own hue. Further back is fainter. | Last year's revenue, in `--money` at `--past-1` |
 
@@ -136,6 +136,7 @@ Line style says whether a number has landed. Hue says what kind of thing it is, 
 - **A month stays hatched until its books close.** Hatch from the first month whose books are still open, not from the current month. The two differ for the first days of each month, while last month is still closing.
 - **Hatching is a texture over the full color.** Draw the mark in its own color, then lay light stripes over it: white, or the page background in dark mode, at about half strength. On a fill too pale for white to show, use ink stripes instead. The hue stays easy to read, so a hatched month still reads as money, and the texture adds that it hasn't landed. Never hatch with colored stripes on an empty fill. The mark thins out and reads paler, and paleness already means "less sure".
 - **The hatch is one spec.** Its angle, spacing, width and strength live in the CSS as one token, and every hatch draws from it: bars, table cells and legend swatches alike. In a chart that hatches, solid versus hatched is the only difference at rest, so segment outlines stay hidden until a bar is hovered or tapped. On hover the stripes quiet so the outlines can be read (Principles 2 and 3).
+- **A dot hatches when part of its value hasn't landed.** A dot that averages over months that include open ones, like a project's revenue per month while it's still billing, takes the same stripes over its full color. The dot stays where its whole value puts it; the hatch says the value can still move.
 - **Opacity can make a zone.** A zone is a layer the data sits on, and opacity is what lets it interact with what's around it: bars cover it, gridlines show through, and it takes the hue of whatever bounds it. A band between two markers, like the budget and needed paces, takes the markers' meaning at 0.16. A range is a zone too: the spread of possible values around a projection, in its series' hue, pale enough to say how sure it is. It stays solid, because nothing in it is waiting to land, and the dash goes on the line through it. Fading a mark is for the past.
 - **Weight shows rank between series.** The series that is the point is drawn heavier than its comparison. A line that hands off to another keeps one weight (Principle 5), so the budget and needed paces share one. A dotted line is a marker at any weight.
 - **Hover guides and crosshairs are interface, not data.** They may be dashed, and they never appear in a legend.
@@ -162,7 +163,7 @@ Every panel has the same parts, in this order:
 4. **Controls:** on the right on wider screens, stacked below the title on phones.
 5. **Chart or table.**
 6. **Legend:** each mark in the key is drawn the way it's drawn on the chart, with the same stroke, dash and opacity.
-7. **Insight:** one takeaway in a sentence, with the key figures in bold. It draws the chart's boundaries: a "projected" insight covers only the hatched periods (Principle 8).
+7. **Insight:** one takeaway in a sentence, with the key figures in bold. It draws the chart's boundaries: a "projected" insight covers only the hatched periods (Principle 8). A stat strip skips it when every tile carries its own figure and delta, since a sentence would only repeat them (Principle 4).
 
 Within the chart:
 
@@ -211,11 +212,11 @@ Part 1 says what kinds of meaning a chart can carry. This part names the meaning
 | `--forecast-range` | palest green | predictive range on the revenue forecast | actuals, targets |
 | `--model` | amber | a model's output: the model line on the revenue forecast, the P&L's predictions. *Departure:* a projection takes the hue of what it projects; a model's output gets its own so the reader knows the method can't be checked by hand | warnings (that's `--watch`), a plain projection (that takes its subject's hue), a chart with `--watch` |
 | `--neutral` | mid gray | a fact with no verdict: headcount, a cost we chose to incur, the rest of a highlight chart, a delta on a metric with no good direction, an AP pill | chrome (that's the interface grays), or a projection of something that isn't neutral |
-| `--history` · `--history-pale` | mid gray; light gray | past values pooled into the history a figure is read against, like a histogram of every day on record, and its median | a single prior period (that's the series itself at `--past-1`), a projection, chrome |
+| `--history` · `--history-pale` | mid gray; light gray | past values pooled into the history a figure is read against, like a histogram of every day on record, and its median; statistics of the data a chart plots, like a distribution's median and middle half or a trailing average | a single prior period (that's the series itself at `--past-1`), a projection, chrome |
 | `--margin-target` | purple | the target line on margin charts | anything else |
 | `--in-flight-margin` | navy | the in-flight margin's reference line on margin charts | a project's own margin, a target |
 | `--target-band` | lavender | target ± tolerance band fill |  |
-| `--now` | navy | the current-month label | a data series, a control (an active toggle is ink and weight, and a focus ring is chrome) |
+| `--now` | navy | the current-period label: the current month, or today on a day axis | a data series, a control (an active toggle is ink and weight, and a focus ring is chrome) |
 | `--utilization-under-far` · `--utilization-under` · `--utilization-on-target` · `--utilization-over` · `--utilization-over-far` | pale warm gray; light gray; peach; dark gray; near-black | utilization heatmap cells, by gap to the row's own target | a raw level with no target; chart lines |
 | `--hours-logged` | soft blue | hours logged to a project, like per-project bars in a utilization drawer | planned hours (that's `--budget`), a utilization level |
 | `--active-project` | navy | a signed project in the months it's active, like the bars on a portfolio chart | an open deal (that's the probability ramp), a stage pill (that's `--stage-completed`) |
@@ -238,6 +239,9 @@ Each metric a chart draws declares which way is good, and its deltas take their 
 | Costs | down |
 | Headcount | neither |
 | Utilization | toward its own target |
+| Time logged | up |
+| Revenue per project | up |
+| Active projects | neither |
 
 ## Rules
 

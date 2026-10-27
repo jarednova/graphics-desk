@@ -160,10 +160,10 @@ Every panel has the same parts, in this order:
 1. **Overline:** the page the panel belongs to.
 2. **Title:** what the chart shows.
 3. **Subtitle:** the basis of the numbers. It changes when a toggle changes the basis.
-4. **Controls:** on the right on wider screens, stacked below the title on phones.
+4. **Controls or key numbers:** on the right on wider screens, stacked below the title on phones. A key number is a headline figure with its delta chip or a note. When the chart also draws that value, the chart leaves it unlabeled (Principle 4).
 5. **Chart or table.**
 6. **Legend:** each mark in the key is drawn the way it's drawn on the chart, with the same stroke, dash and opacity.
-7. **Insight:** one takeaway in a sentence, with the key figures in bold. It draws the chart's boundaries: a "projected" insight covers only the hatched periods (Principle 8). A stat strip skips it when every tile carries its own figure and delta, since a sentence would only repeat them (Principle 4).
+7. **Insight:** one takeaway in a sentence, with the key figures in bold. It draws the chart's boundaries: a "projected" insight covers only the hatched periods (Principle 8).
 
 Within the chart:
 
@@ -242,6 +242,7 @@ Each metric a chart draws declares which way is good, and its deltas take their 
 | Time logged | up |
 | Revenue per project | up |
 | Active projects | neither |
+| Project starts and ends | neither |
 
 ## Rules
 
